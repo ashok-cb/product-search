@@ -48,11 +48,16 @@
        var spinner = document.getElementById('spinner');
        var dataContainer = document.getElementById('productData');
       var products = [];
-    
+       
+      var preEvent=""
       function handleText(event){
+        if(preEvent!=""){
+          preEvent.target.style.backgroundColor='white'
+        }
         console.log(event.target);
         document.getElementById('myInput').value=event.target.textContent
         event.target.style.backgroundColor='orange'
+        preEvent=event
       }
       
       function fetchProducts(){
@@ -132,11 +137,6 @@
                 //         productData.style.display='block'
                 //         dataContainer.style.display = 'block';
                 //      }
-                //         setTimeout(stopSpinnerAndShowData, 5000);
-                // });
-    </script>
-</body>
-</html>  //      }
                 //         setTimeout(stopSpinnerAndShowData, 5000);
                 // });
     </script>
