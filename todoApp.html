@@ -184,12 +184,10 @@
                                       </div>
                                       <div class="container">
                                           <div  class="addBlock row mt-2 mx-auto" style='width:80%'>
-                                            <input id="noteInput" type="text" class="col-9 ms-1 ms-sm-3   rounded-3">
-                                            <button id="addNote" onclick="addcomment(${itemCount+1})" class="col-2 btn btn-primary ms-2 text-center p-none" >Add</button>
-                                          </div>
-                                          <div class="editBlock row mt-2 mx-auto d-none" style='width:80%'>
-                                            <input id="editNoteInput" type="text" class="col-9 ms-1 ms-sm-3   rounded-3">
-                                            <button id="addEditNote" onclick="addEditCmt(${itemCount+1})" class="col-2 btn btn-primary ms-2 text-center p-none" >Edit</button>
+                                            <input id="noteInput" onkeyup="statusOfClearBtn(${itemCount+1})" type="text" class="col-8 ms-1 ms-sm-3   rounded-3">
+                                            <button id="addNote" onclick="addcomment(${itemCount+1})" class="col-2 btn btn-primary ms-2 text-center p-none" >Add</button> 
+                                            <button id="addEditNote" onclick="addEditCmt(${itemCount+1})" class="col-2 btn btn-primary ms-2 text-center p-none d-none" >Edit</button>
+                                            <button id="removeEditCmt" class=" col-1 ms-2 btn btn-danger fw-bold" onclick="clearCmt(${itemCount+1})" disabled><i class="fa-solid fa-xmark"></i></button> 
                                           </div>
                                       </div>
                             </div>
@@ -210,36 +208,53 @@
             // $('#add').hide()
             // $('#remove').hide()
            })  
-             
+           
+          function statusOfClearBtn(id){
+           var input=$(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#noteInput').val()
+           var btn= $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#removeEditCmt')
+            $(btn).prop("disabled",false)
+                if(input.trim()==''){
+                  $(btn).prop("disabled",true)
+                } 
+          }
+
            function addcomment(id) {
                editCmtId++;
                var noteInput= $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children().children('#noteInput').val()
                $(`#${id}`).children('.notepad').children('.comtdiv').children('.commentBox').children('#nocomment').text('')
                if(noteInput.trim()!=''){
                   $(`#${id}`).children('.notepad')
-                   var newComment=$(`<div id="cmt${editCmtId}" class='mt-2 bg-warning p-2 rounded-3 mx-auto' style='width:80%'><div id='cmt' class='d-inline'>${noteInput}</div><i onclick='editcmt(cmt${editCmtId})' class="fa-solid fa-pen-to-square btn ms-auto d-inline"></div>`)
+                   var newComment=$(`<div id="cmt${editCmtId}" class='mt-2 bg-warning text-break p-2 rounded-3 mx-auto' style='width:80%'><div id='cmt' class='d-inline'>${noteInput}</div><i onclick='editcmt(cmt${editCmtId})' class="fa-solid fa-pen-to-square btn ms-auto d-inline"></div>`)
                    $(`#${id}`).children('.notepad').children().children('.commentBox').append(newComment)
                 }
                 $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children().children('#noteInput').val('')
+                $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#removeEditCmt').prop("disabled",true)
              }
              
             function addEditCmt(id){
-             var geteditNoteInput= $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.editBlock').children('#editNoteInput').val()
+             var geteditNoteInput= $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#noteInput').val()
               $(seteditCmtId).children('#cmt').text(geteditNoteInput)
-              $(id).parent('.commentBox').parent('.comtdiv').children('.container').children('.addBlock').addClass('d-none')
-              $(id).parent('.commentBox').parent('.comtdiv').children('.container').children('.editBlock').removeClass('d-none') 
-              $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.editBlock').children('#editNoteInput').val()
-              $(seteditCmtId).parent('.commentBox').parent('.comtdiv').children('.container').children('.addBlock').removeClass('d-none')
-                $(seteditCmtId).parent('.commentBox').parent('.comtdiv').children('.container').children('.editBlock').addClass('d-none') 
+              $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#addEditNote').addClass('d-none')
+              $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#addNote').removeClass('d-none') 
+               $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#noteInput').val('') 
+               $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#removeEditCmt').prop("disabled",true)           
             }
 
             function editcmt(id){
                  seteditCmtId=id 
                  editCmtText=$(id).text()
-                $(id).parent('.commentBox').parent('.comtdiv').children('.container').children('.addBlock').addClass('d-none')
-                $(id).parent('.commentBox').parent('.comtdiv').children('.container').children('.editBlock').removeClass('d-none') 
-                $(id).parent('.commentBox').parent('.comtdiv').children('.container').children('.editBlock').children('#editNoteInput').val(editCmtText)
+                $(id).parent('.commentBox').parent('.comtdiv').children('.container').children('.addBlock').children('#addNote').addClass('d-none')
+                $(id).parent('.commentBox').parent('.comtdiv').children('.container').children('.addBlock').children('#addEditNote').removeClass('d-none') 
+                $(id).parent('.commentBox').parent('.comtdiv').children('.container').children('.addBlock').children('#noteInput').val(editCmtText)
+                $(id).parent('.commentBox').parent('.comtdiv').children('.container').children('.addBlock').children('#removeEditCmt').prop("disabled",false)
               }
+
+            function clearCmt(id){
+              $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#noteInput').val('')
+              $(`#${id}`).children('.notepad').children('.comtdiv').children('.container').children('.addBlock').children('#removeEditCmt').prop("disabled",true)
+
+            }
+           
 
             $( "#Clearall" ).click( function() {
               $('#add').prop("disabled",true)

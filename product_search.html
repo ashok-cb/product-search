@@ -38,6 +38,7 @@
             <button id="btn" class="btn btn-outline-success"  type="submit" onclick="removeInputData()">Search</button>
         
         </div>
+        <h4>hey..search product here...</h4>
         <div id="display" class="bg-light text-dark mt-3" onclick="handleText(event)">       
         </div>
     </div>
@@ -48,16 +49,17 @@
        var spinner = document.getElementById('spinner');
        var dataContainer = document.getElementById('productData');
       var products = [];
-       
-      var preEvent=""
+  
+      var preEvent="";
+
       function handleText(event){
         if(preEvent!=""){
           preEvent.target.style.backgroundColor='white'
         }
-        console.log(event.target);
         document.getElementById('myInput').value=event.target.textContent
         event.target.style.backgroundColor='orange'
         preEvent=event
+        // console.log( products[findindex(event.target.textContent)]);
       }
       
       function fetchProducts(){
@@ -89,7 +91,7 @@
                       var pTitle =products[i].title;
                       if (pTitle.toUpperCase().indexOf(filter) > -1) 
                         {
-                          display.innerHTML+=`<li>${pTitle}</li>`
+                          display.innerHTML+=`<a href="file:///C:/Users/91630/OneDrive/Desktop/cropbytes/products_details.html?id=${1+findindex(pTitle)}" target="_blank"><li>${pTitle}</li></a>`
                         } 
                   }
                   cleardata();
@@ -99,14 +101,14 @@
               if(input.value.trim()=="")
             {
               display.innerHTML=""
-              btn.style.backgroundColor='white'
-              btn.innerText='search'
-              btn.style.color='green'
+              button.style.backgroundColor='white'
+              button.innerText='search'
+              button.style.color='green'
 
             }else{
-              btn.style.backgroundColor='red'
-              btn.style.color='white'
-              btn.innerText='cancle'
+              button.style.backgroundColor='red'
+              button.style.color='white'
+              button.innerText='cancle'
             }  
             }
                function removeProductDetails(){
@@ -114,6 +116,14 @@
                 myInput.value=""
                 }
 
+                function findindex(title){
+                  let inputTitle=title.toUpperCase()
+                  for (i = 0; i <products.length; i++) 
+                  {
+                      var pTitle =products[i].title;
+                      if (pTitle.toUpperCase()==inputTitle)return i
+                  }
+                }
                 // searchProducts().then(data => {
                 //     display.innerHTML=data.title
                 //     console.log(data);
