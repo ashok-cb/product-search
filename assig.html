@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!-- <p>lorem</p> -->
+<html lang="en">
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="../cropbytes/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../cropbytes/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/js/bootstrap.js">
+    <style>
+        @font-face {
+            font-family: myfont;
+            src: url(Vampire.ft.otf);
+        }
+       *{
+          /* font-family: "PT Sans", Calibri, Tahoma, sans-serif; */
+          font-family: myfont;
+        } 
+    
+       /* #head{
+            font-size: 60px;
+            font-weight:bold;
+        }
+        input,button{
+            margin-top: 20px;
+            width: 400px;
+            height: 40px;
+            border-radius :60px;
+        }
+        .form-control{
+            border-radius :60px;
+            border: 1px solid rgba(0, 0, 0, 0.435);
+            width: 400px;
+            height: 40px;
+        }
+        #showpass
+        {
+            width: 10px;
+            height:10px;  
+            border: 4px solid black;
+        }
+        #container{
+            flex-direction: row;
+            display: flex;
+        }
+        .flex1{
+            margin-top: 150px;
+            width: 400px;
+            margin-left: 150px;
+            margin-right: 150px;
+        }
+        .flex2{
+            margin-top: 120px;
+        }
+        .flex2>image{
+            border: 0px solid white;
+        }
+          button{
+            background-color: black;
+            color: white;
+        }
+       a
+        {
+            text-decoration: none;
+            color: black;
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        a>span{
+            font-weight: lighter;
+        }
+        #anchor{
+            text-align: center;
+            display: block;
+        }
+       #password-error {
+            color: red;
+            font-size: 14px;
+            margin-top:5px;
+        } */
+  .test{
+        position: relative;
+        animation-name: example;
+        animation-duration: 1s;
+        animation-iteration-count:infinite;
+        }
+
+   @keyframes example {
+       0%{
+        transform: translateY(-100px);
+       }  
+       50%{
+        transform: translateY(20%)
+       }
+       100%
+       {
+        transform: translateY(-100px);
+       }
+      }
+    </style>
+</head>
+<body>
+    <div class="d-flex justify-content-around align-items-center flex-sm-column d-sm-inline-column flex-md-row flex-lg-row flex-xl-row" style=" height:750px;">
+        <div class="" style="width: 35%;">
+                  <h1 id="head" class="">Hello Friend</h1>
+
+                <div id="remove">
+                      <span class="text-body-secondary">Welcome back. Login to start playing</span>
+                 
+
+                      <input type="text" placeholder="email" class="form-control border-2 rounded-5 mt-3 p-3" id="name"><br>
+                      <input type="password" placeholder="password" id="password" class="form-control border-2 rounded-5  mt-2 p-3">
+                      <div class="form-check mb-3">
+                        <input class="form-check-input border border-2" type="checkbox" value="" id="flexCheckDefault" onclick="myFunction()" id="showpass">
+                        <label class="form-check-label" for="flexCheckDefault">
+                         show password
+                        </label>
+                      </div>
+                      <div id="password-error"></div>
+                      <button id="continue" onclick="validateform()" class=" mt-2 form-control border-2 bg-dark text-light rounded-5 p-3">continue</button>
+      
+                 
+                    <div id="anchor">
+                       <a class="d-block text-center text-dark mt-2 link-offset-2 link-underline link-underline-opacity-0" href="#"><span class="text-body-secondary">Don't have an account?</span> Sign Up</a><br>
+                       <a class="d-block text-center text-dark link-offset-2 link-underline link-underline-opacity-0" href="#">Forgot password</a>
+                    </div>
+                </div>
+            <a id="logout" class="btn" href="file:///C:/Users/91630/OneDrive/Desktop/cropbytes/assig.html"></a>
+        </div>
+        <div class="test">
+                <img class="my-auto" src="../cropbytes/img/Screenshot 2023-12-28 at 11.22.52 AM.png" alt="" width="400px" height="500px">
+        </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>  
+        function validateform(){  
+        var name=document.getElementById('name').value.trim();  
+        var password=document.getElementById('password').value.trim();  
+        
+         if (name==null || name==""||password==null||password==""){  
+          alert("Name or Password can't be blank");  
+          return false;  
+          }
+         else if(password.length<6){  
+          alert("Password must be at least 6 characters long.");  
+          return false;  
+          }
+         if(password!=='cropbytes'){
+
+             let invallid= document.getElementById('password-error')
+             invallid.innerHTML = 'Invallid password';
+             invallid.style.color="red"
+
+          }
+        else{
+            var displayArea = document.getElementById("head");
+           // displayArea.innerHTML = `<h1>Hello  ${name}</h1>`;
+           displayArea.innerHTML="Hello "+name
+           document.getElementById('remove').innerHTML = ''
+          
+          
+           let sub = document.getElementById("continue")
+           let logout=document.getElementById("logout")
+           logout.innerHTML="Logout"
+           logout.style.backgroundColor="red"
+           logout.style.width="100px"
+           logout.style.marginTop="300px"
+           
+        //    let style1={
+        //     "backgroundColor":"red",
+        //     "color":"white",
+        //     "width":"100px",
+        //     "marginTop":"300px"
+        //    }
+        //    logout.style=style1
+        }
+        }  
+        function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+         x.type = "text";
+         } else {
+          x.type = "password";
+          }
+     }
+     </script>   
+</body>
+</html>
